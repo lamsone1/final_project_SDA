@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Seznam zboží</h2><br>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Kód</th>
+          <th scope="col"></th>
+          <th scope="col">Název</th>
+          <th scope="col">Rozměr</th>
+          <th scope="col">Vrstvy</th>
+          <th scope="col">FEFCO</th>
+          <th scope="col">Barva</th>
+          <th scope="col">Skladem</th>
+          <th scope="col">Nákupní cena</th>
+          <th scope="col">Prodejní Cena</th>
+        </tr>
+      </thead>
+      <tbody>
+                {% for box in boxes %}
+                    <tr>
+                      <th scope="row">{{ box.id }}</th>
+                      <td><img src="{{ MEDIA_URL }}/{{box.photo}}" width="120"/></td>
+                      <td>{{ box.name }}</td>
+                      <td>{{ box.size }}</td>
+                      <td>{{ box.layer }}</td>
+                      <td>0{{ box.fefco }}</td>
+                      <td>{{ box.color }}</td>
+                      <td>{{ box.quantity }}</td>
+                      <td>{{ box.price_n }}</td>
+                      <td>{{ box.price_a }}</td>
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
