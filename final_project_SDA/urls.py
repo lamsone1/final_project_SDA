@@ -18,13 +18,16 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from utils.views import boxes, BoxesListView
+from utils.views import boxes, BoxesListView, BoxUpdateView, BoxDeleteView, ToStockUpdateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('utils/goods', boxes, name='boxes'),
-    path('utils', BoxesListView.as_view(), name='boxes_list'),
+    path('utils', BoxesListView.as_view(), name='utils'),
+    path('movie/update/<pk>', BoxUpdateView.as_view(), name='box_update'),
+    path('movie/delete/<pk>', BoxDeleteView.as_view(), name='box_delete'),
+    path('movie/stock/<pk>', ToStockUpdateView.as_view(), name='box_stock'),
 
 ]
 
