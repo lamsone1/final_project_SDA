@@ -34,6 +34,8 @@ urlpatterns = [
     path('utils/fefco/create', FefcoCreateView.as_view(), name='fefco_create'),
     path('utils/fefco/update/<pk>', FefcoUpdateView.as_view(), name='fefco_update'),
 
+
+
 ]
 
 if settings.DEBUG:
