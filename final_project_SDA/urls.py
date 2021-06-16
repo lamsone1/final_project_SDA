@@ -18,17 +18,21 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from utils.views import boxes, BoxesListView, BoxUpdateView, BoxDeleteView, ToStockUpdateView, BoxCreateView
+from utils.views import boxes, BoxesListView, BoxUpdateView, BoxDeleteView, ToStockUpdateView, BoxCreateView, \
+    FefcoListView, FefcoCreateView, FefcoUpdateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('utils/goods', boxes, name='boxes'),
     path('utils', BoxesListView.as_view(), name='utils'),
-    path('movie/update/<pk>', BoxUpdateView.as_view(), name='box_update'),
-    path('movie/delete/<pk>', BoxDeleteView.as_view(), name='box_delete'),
-    path('movie/stock/<pk>', ToStockUpdateView.as_view(), name='box_stock'),
-    path('movie/create', BoxCreateView.as_view(), name='box_create')
+    path('utils/goods/update/<pk>', BoxUpdateView.as_view(), name='box_update'),
+    path('utils/goods/delete/<pk>', BoxDeleteView.as_view(), name='box_delete'),
+    path('utils/goods/stock/<pk>', ToStockUpdateView.as_view(), name='box_stock'),
+    path('utils/goods/create', BoxCreateView.as_view(), name='box_create'),
+    path('utils/fefco', FefcoListView.as_view(), name='fefco'),
+    path('utils/fefco/create', FefcoCreateView.as_view(), name='fefco_create'),
+    path('utils/fefco/update/<pk>', FefcoUpdateView.as_view(), name='fefco_update'),
 
 ]
 

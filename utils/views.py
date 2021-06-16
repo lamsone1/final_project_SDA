@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 
-from utils.models import Box
+from utils.models import Box, Fefco
 
-from utils.forms import BoxModelForm, StockModelForm
+from utils.forms import BoxModelForm, StockModelForm, FefcoModelForm
 
 
 def boxes(request):
@@ -38,3 +38,18 @@ class BoxCreateView(CreateView):
     template_name = 'form.html'
     form_class = BoxModelForm
     success_url = reverse_lazy('utils')
+
+class FefcoListView(ListView):
+    template_name = 'fefco_list.html'
+    model = Fefco
+
+class FefcoCreateView(CreateView):
+    template_name = 'form.html'
+    form_class = FefcoModelForm
+    success_url = reverse_lazy('utils')
+
+class FefcoUpdateView(UpdateView):
+    template_name = 'form.html'
+    model = Fefco
+    form_class = FefcoModelForm
+    success_url = reverse_lazy('utils/fefco')

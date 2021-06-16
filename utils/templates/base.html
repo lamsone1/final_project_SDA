@@ -13,7 +13,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container fixed">
-        <a class="navbar-brand" href="/">zabal.to</a>
+        <a class="navbar-brand" href="/">zabal.to<br> admin</a>
         <button
           class="navbar-toggler" type="button"
           data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -22,16 +22,29 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="{% url 'utils' %}">
-              Seznam zboží
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Produkty
             </a>
-          </div>
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="{% url 'box_create' %}">
-              Přidat zboží
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'utils' %}" >Kompletní přehled</a>
+              <a class="dropdown-item" href="{% url 'box_create' %}">Přidat produkt</a>
+
+            </div>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="Category" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Kategorie
             </a>
-          </div>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'fefco' %}" >Kategorie FEFCO</a>
+              <a class="dropdown-item" href="{% url 'fefco_create' %}">Přidat FEFCO kategorii</a>
+
+            </div>
+          </li>
+
 
 
         </div>
