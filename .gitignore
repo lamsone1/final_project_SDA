@@ -6,3 +6,6 @@ home_page/migrations/__pycache__/
 image/
 utils/__pycache__/
 utils/migrations/__pycache__/
+.idea/
+venv/
+
