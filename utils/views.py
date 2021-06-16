@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, UpdateView, DeleteView
+from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 
 from utils.models import Box
 
@@ -34,3 +34,7 @@ class ToStockUpdateView(UpdateView):
     form_class = StockModelForm
     success_url = reverse_lazy('utils')
 
+class BoxCreateView(CreateView):
+    template_name = 'form.html'
+    form_class = BoxModelForm
+    success_url = reverse_lazy('utils')
