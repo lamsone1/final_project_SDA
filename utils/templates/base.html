@@ -44,10 +44,33 @@
 
             </div>
           </li>
-
-
-
         </div>
+
+
+            <div class="navbar-nav ml-auto">
+                  <div class="nav-item dropdown">
+                    {% if user.is_authenticated %}
+                      <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown">
+                        {% if user.first_name %}{{ user.first_name }} <br> Přihlášen
+                        {% else %}{{ user.username }} <br> Přihlášen{% endif %}
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item text-right" href="{% url 'admin_logout' %}">Logout</a>
+                        <a class="dropdown-item text-right" href="{% url 'admin_password_change' %}">Change password</a>
+                      </div>
+                    {% else %}
+                      <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown">
+                        Nepřihlášen
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item text-right" href="{% url 'admin_login' %}">Login</a>
+                        <a class="dropdown-item text-right" href="{% url 'sign_up' %}">Sign Up</a>
+                      </div>
+                    {% endif %}
+                  </div>
+            </div>
+
+
       </div>
     </nav>
     <div class="container">

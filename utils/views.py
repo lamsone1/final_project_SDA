@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
@@ -13,43 +14,45 @@ def boxes(request):
     return render(request, template_name='goods_full_list.html', context={'boxes': box_list})
 
 
-class BoxesListView(ListView):
+class BoxesListView(LoginRequiredMixin, ListView):
     template_name = 'goods_list.html'
     model = Box
 
-class BoxUpdateView(UpdateView):
+class BoxUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     model = Box
     form_class = BoxModelForm
     success_url = reverse_lazy('utils')
 
-class BoxDeleteView(DeleteView):
+class BoxDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'box_confirm_delete.html'
     model = Box
     success_url = reverse_lazy('utils')
 
-class ToStockUpdateView(UpdateView):
+class ToStockUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     model = Box
     form_class = StockModelForm
     success_url = reverse_lazy('utils')
 
-class BoxCreateView(CreateView):
+class BoxCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = BoxModelForm
     success_url = reverse_lazy('utils')
 
-class FefcoListView(ListView):
+class FefcoListView(LoginRequiredMixin, ListView):
     template_name = 'fefco_list.html'
     model = Fefco
 
-class FefcoCreateView(CreateView):
+class FefcoCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = FefcoModelForm
     success_url = reverse_lazy('utils')
 
-class FefcoUpdateView(UpdateView):
+class FefcoUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     model = Fefco
     form_class = FefcoModelForm
     success_url = reverse_lazy('utils/fefco')
+
+
