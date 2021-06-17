@@ -8,4 +8,6 @@ utils/__pycache__/
 utils/migrations/__pycache__/
 .idea/
 venv/
+admin_accounts/__pycache__/
+admin_accounts/migrations/__pycache__/
 
