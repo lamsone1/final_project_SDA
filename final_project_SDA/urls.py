@@ -20,9 +20,13 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from admin_accounts.views import AdminLoginView, AdminPasswordChangeView, SignUpView
-from home_page.views import FrontListView
+from home_page.views import FrontView, AboutView, HowToShopView, \
+    ConditionsView, CompleteListView, ProductDetailView, FrontFefcoListView
 from utils.views import boxes, BoxesListView, BoxUpdateView, BoxDeleteView, ToStockUpdateView, BoxCreateView, \
     FefcoListView, FefcoCreateView, FefcoUpdateView
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -43,7 +47,16 @@ urlpatterns = [
     path('utils/accounts/sign-up/', SignUpView.as_view(), name='sign_up'),
     path('utils', AdminLoginView.as_view(), name='admin_login_main'),
 
-    path('', FrontListView.as_view(), name='index'),
+    path('', FrontView.as_view(), name='index'),
+    path('about/', AboutView.as_view(), name='about'),
+    path('how/', HowToShopView.as_view(), name='how_to_shop'),
+    path('conditions/', ConditionsView.as_view(), name='conditions'),
+
+    path('products/', CompleteListView.as_view(), name='products'),
+    path('products/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
+    path('products/fefco/<str:fefco>/', FrontFefcoListView.as_view(), name='fefco_products'),
+
+
 
 ]
 

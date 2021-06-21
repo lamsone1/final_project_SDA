@@ -1,9 +1,8 @@
-db.sqlite3
+
 final_project_SDA/__pycache__/
-final_project_SDA/db.sqlite3
+
 home_page/__pycache__/
 home_page/migrations/__pycache__/
-image/
 utils/__pycache__/
 utils/migrations/__pycache__/
 .idea/

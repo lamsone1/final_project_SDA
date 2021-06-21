@@ -1,7 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
+
+from utils.models import Box
 
 
 class AdminLoginView(LoginView):
@@ -17,3 +19,5 @@ class SignUpView(CreateView):
     template_name = 'form.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('utils')
+
+

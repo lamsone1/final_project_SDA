@@ -1,0 +1,17 @@
+{% extends "front.html" %}
+{% load static %}
+{% block content %}
+    <h1>{{box.name}} - 0{{box.fefco}}</h1>
+
+
+        <div class="card" style="width: 18rem;">
+            <img src="{{ MEDIA_URL }}/{{box.photo}}" class="card-img-top" alt="Picture">
+                <div class="card-body">
+                    <h5 class="card-title">{{box.size}}</h5>
+                    <p class="card-text">{{ box.description }}</p>
+                    <p class="card-text">Skladem: {{ box.quantity }} Ks</p>
+
+                </div>
+        </div>
+
+{% endblock %}
