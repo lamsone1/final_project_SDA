@@ -10,6 +10,10 @@
                     <h5 class="card-title">{{box.size}}</h5>
                     <p class="card-text">{{ box.description }}</p>
                     <p class="card-text">Skladem: {{ box.quantity }} Ks</p>
+                    <a href="{{ object.get_add_to_cart_url }}" class="btn btn-success btn-sm" >Koupit
+                         <i class="fas fa-shopping-cart ml-1"></i>
+                     </a>
+
 
                 </div>
         </div>

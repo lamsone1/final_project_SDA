@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <h1></h1>
+
+
+    <div class="card" style="width: 18rem;">
+        <img src="{{ MEDIA_URL }}{{box.photo }}" class="card-img-top" alt="picture">
+        <div class="card-body">
+            <h5 class="card-title">{{ box.name }}</h5>
+            <p class="card-text">{{ box.size}}</p>
+            <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p" >Koupit
+                <i class="fas fa-shopping-cart ml-1"></i>
+            </a>
+            <br>
+            <br>
+            {{ object.get_quantity_in_chart }}
+            <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p" >Remove From cart
+                <i class="fas fa-trash ml-1"></i>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

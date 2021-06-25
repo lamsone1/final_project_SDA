@@ -1,5 +1,7 @@
 {% extends "front.html" %}
 
+{% load static %}
+
 {% block content1 %}
             {% for box in object_list %}
                  <a class="dropdown-item" href="fefco_products_menu" >0{{ box.fefco }}</a>
@@ -38,11 +40,12 @@
                                 <th scope="row">
                                     <a class="btn btn-success btm-sm" href="{% url 'product_detail' pk=box.id %}">detail</a>
 
-                                </th>
+
+
 
 
                                 <th scope="row">
-                                    <a class="btn btn-success btm-sm" href="{% url 'box_update' pk=box.id %}">koupit</a>
+                                    <a class="btn btn-success btm-sm" href="{{ object.get_add_to_cart_url  }}">koupit</a>
 
                                 </th>
 
