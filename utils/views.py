@@ -405,11 +405,11 @@ def remove_from_cart(request, pk):
                 ordered=False
             )[0]
             order_item.delete()
-            messages.info(request, "Item \""+order_item.item.item_name+"\" remove from your cart")
+            messages.info(request, "Item \""+order_item.item.name+"\" remove from your cart")
             return redirect("order-summary")
         else:
             messages.info(request, "This Item not in your cart")
-            return redirect("product", pk=pk)
+            return redirect("index", pk=pk)
     else:
         #add message doesnt have order
         messages.info(request, "You do not have an Order")
