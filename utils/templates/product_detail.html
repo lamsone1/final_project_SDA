@@ -4,12 +4,14 @@
     <h1>{{box.name}} - 0{{box.fefco}}</h1>
 
 
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 24rem;">
             <img src="{{ MEDIA_URL }}/{{box.photo}}" class="card-img-top" alt="Picture">
                 <div class="card-body">
                     <h5 class="card-title">{{box.size}}</h5>
                     <p class="card-text">{{ box.description }}</p>
+
                     <p class="card-text">Skladem: {{ box.quantity }} Ks</p>
+                    <p class="card-text">Cena: {{ box.price_a }} Kč</p>
                     <a href="{{ object.get_add_to_cart_url }}" class="btn btn-success btn-sm" >Koupit
                          <i class="fas fa-shopping-cart ml-1"></i>
                      </a>
@@ -17,5 +19,7 @@
 
                 </div>
         </div>
+
+
 
 {% endblock %}

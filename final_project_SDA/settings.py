@@ -141,8 +141,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'image')
 MEDIA_URL = '/image/'
 
-LOGIN_REDIRECT_URL = 'utils'
-LOGOUT_REDIRECT_URL = 'utils'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 STRIPE_KEY = ''
 

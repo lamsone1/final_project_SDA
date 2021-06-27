@@ -1,0 +1,46 @@
+{% extends "front.html" %}
+
+{% block content %}
+
+
+
+
+
+    {% for result in results %}
+
+        <p>{{box}}</p>
+
+    {% endfor %}
+
+
+
+
+
+
+            <div class="container-fluid ">
+                {% for item in item_list%}
+            <div class="row row-cols-1 row-cols-md-3" style="display: inline-flex">
+
+
+            <div class="col mb-4">
+                <div class="card">
+                    <img src="{{ MEDIA_URL }}/{{item.photo}}" class="card-img-top" alt="Picture" style="height: 250px;width: 350px"></a>
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <a class="card-text">{{ item.name }}</a>
+                        <a class="card-text">{{ item.size }}</a>
+                        <p class="card-text">Cena: {{ item.price_a }} Kč</p>
+                        <a class="btn btn-success btm-sm" href="{% url 'product_detail' pk=item.id %}">detail</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+                {% endfor %}
+        </div>
+
+
+
+{% endblock %}

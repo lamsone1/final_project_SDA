@@ -8,9 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>zabal.to</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -44,72 +48,110 @@
             <div class="nav-item dropdown">
                 {% if user.is_authenticated %}
                     <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown">
-                        {% if user.first_name %}{{ user.first_name}} <br> Prihlaseny
-                            {% else %}{{ user.username}} <br> Prihlaseny
+                        {% if user.first_name %}{{ user.first_name}} <br> Prihlášený
+                            {% else %}{{ user.username}} <br> Prihlášený
                         {% endif %}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item text-right" href="{% url 'logout' %}">Odhlásit</a>
-                        <a class="dropdown-item text-right" href="#">Change Password</a>
+                        <a class="dropdown-item text-right" href="#">Změnit heslo</a>
                     </div>
                 {% else %}
                     <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown">Nepřihlášený</a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item text-right" href="{% url 'login' %}">Login</a>
-                        <a class="dropdown-item text-right" href="{% url 'sign_up' %}">Sign Up</a>
+                        <a class="dropdown-item text-right" href="{% url 'login' %}">Přihlásit</a>
+                        <a class="dropdown-item text-right" href="{% url 'sign_up' %}">Zaregistrovat</a>
                     </div>
                 {% endif %}
             </div>
         </div>
-        <div><b span style="color: black;"><a href="{% url 'order-summary' %}" class="button"> Košík </b></a>
+
+        <a href="{% url 'order-summary' %}">
+          <i class="fas fa-shopping-cart">Košík</i>
+          <span class="glyphicon glyphicon-shopping-cart"></span>
+        </a>
+
         </div>
+
+
 
 
       </div>
+
+
     </nav>
 
-      <nav class="navbar navbar-expand-lg navbar-fixed-top" style="background-color: #ab06fe">
+    <div class="p-3 mb-2 bg-secondary text-black">
+        <br>
+        <form action="/search/" method="GET" style="text-align: center;">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="kdo hledá, ten najde" >
+            <input type="submit" name="Hledat" value="Hledat">
+        </form>
+
         <div class="container">
-          <div class="container fixed">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="{% url 'products' %}" style="color: white">
-                  Kompletní přehled
 
-                </a>
+          <nav class="navbar navbar-expand-lg navbar-static-top" style="background-color: #ab06fe">
+            <div class="container">
+              <div class="container fixed">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="{% url 'products' %}" style="color: white">
+                      Kompletní přehled
 
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="Category" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
-                    Kategorie Fefco
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    </a>
 
-                    <li><a class="dropdown-item" href="/products/fefco/201">0201</a></li>
-                    <li><a class="dropdown-item" href="/products/fefco/301">0301</a></li>
-                    <li><a class="dropdown-item" href="/products/fefco/401">0401</a></li>
-                    <li><a class="dropdown-item" href="/products/fefco/601">0601</a></li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="Category_FEFCO" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
+                        Kategorie Fefco
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                        <li><a class="dropdown-item" href="/products/fefco/201">0201</a></li>
+                        <li><a class="dropdown-item" href="/products/fefco/301">0301</a></li>
+                        <li><a class="dropdown-item" href="/products/fefco/401">0401</a></li>
+                        <li><a class="dropdown-item" href="/products/fefco/601">0601</a></li>
 
 
-                  </ul>
-                </li>
+                      </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="Category_layer" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
+                        Vrstvy
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                        <li><a class="dropdown-item" href="/products/layer/1">3VL</a></li>
+                        <li><a class="dropdown-item" href="/products/layer/2">5VL</a></li>
+
+
+                      </ul>
+                    </li>
+
+                </div>
+
+
+              </div>
 
             </div>
-
-
-          </div>
-
+          </nav>
         </div>
-      </nav>
 
 
 
-    <div class="p-3 mb-2 bg-secondary text-black">
+
 
       <div class="container">
         <div class="jumbotron">
-          {% block content %}testtest{% endblock %}
+          {% block content %}
+            <H3>Zabal.to - Váš obchod s krabicemi</h3>
+            <img src="image/media/front.jpg" class="img-fluid" alt="image"  >
+            {% endblock %}
         </div>
       </div>
+        {% include "footer.html" %}
     </div>
+
   </body>
 
 </html>

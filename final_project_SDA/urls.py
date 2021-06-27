@@ -24,7 +24,7 @@ from admin_accounts.views import AdminLoginView, AdminPasswordChangeView, SignUp
 from utils.views import FrontView, AboutView, HowToShopView, \
     ConditionsView, CompleteListView, ProductDetailView, FrontFefcoListView, OrderSummaryView, CheckoutView, \
     PaymentView, add_to_cart, remove_from_cart, reduce_quantity_item, ProductView, LayerListView, LayerCreateView, \
-    LayerUpdateView
+    LayerUpdateView, FrontLayerListView, AuthFrontView, search_product
 from utils.views import boxes, BoxesListView, BoxUpdateView, BoxDeleteView, ToStockUpdateView, BoxCreateView, \
     FefcoListView, FefcoCreateView, FefcoUpdateView
 
@@ -61,10 +61,13 @@ urlpatterns = [
     path('about/', AboutView.as_view(), name='about'),
     path('how/', HowToShopView.as_view(), name='how_to_shop'),
     path('conditions/', ConditionsView.as_view(), name='conditions'),
+    path('utils/bad-auth/', AuthFrontView.as_view(), name='bad_auth'),
+    path('search/', search_product, name='search'),
 
     path('products/', CompleteListView.as_view(), name='products'),
     path('products/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
     path('products/fefco/<str:fefco>/', FrontFefcoListView.as_view(), name='fefco_products'),
+    path('products/layer/<str:layer>/', FrontLayerListView.as_view(), name='layer_products'),
 
     path('order-summary/', OrderSummaryView.as_view(), name='order-summary'),
     path('checkout/', CheckoutView.as_view(), name='checkout'),

@@ -6,29 +6,29 @@
         <div class= "container">
             <div class="table-responsive text-nowrap">
                 <h3>
-                    <strong>Your Cart</strong>
+                    <strong>Košík</strong>
                 </h3>
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Item Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Total Item Price</th>
+                        <th scope="col">Položka</th>
+                        <th scope="col">Cena za jedmotku</th>
+                        <th scope="col">Množství</th>
+                        <th scope="col">Celková cena</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for order_item in object.items.all %}
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ order_item.item.item_name }}</td>
+                            <td>{{ order_item.item.name }}</td>
                             <td>
                                 {% if order_item.item.discount_price %}
-                                    <del>{{ order_item.item.price}} CZK</del>
+                                    <del>{{ order_item.item.price_a}} CZK</del>
                                     {{ order_item.item.discount_price }} CZK
                                 {% else %}
-                                    {{ order_item.item.price}} CZK
+                                    {{ order_item.item.price_a}} CZK
                                 {% endif %}
 
                             </td>
@@ -53,12 +53,12 @@
 
                     {% empty %}
                         <tr>
-                            <td colspan="5">Your Cart Empty</td>
+                            <td colspan="5">Košík je prázdný</td>
                         </tr>
 
                         <tr>
                             <td colspan="5">
-                                <a href="/" class="btn btn-primary float-right">Continue Shopping</a>
+                                <a href="/" class="btn btn-success btm-sm float-right">Pokračovat v nakupování</a>
                             </td>
                         </tr>
 
@@ -66,13 +66,13 @@
 
                     {% if object.get_total_price %}
                         <tr>
-                            <td colspan="4"><b>Total Order Price</b></td>
+                            <td colspan="4"><b>Celková cena nákupu</b></td>
                             <td>{{ object.get_total_price }} CZK</td>
                         </tr>
                         <tr>
                             <td colspan="5">
-                                <a href="{% url 'checkout' %}" class="btn btn-warning float-right ml-2">Checkout</a>
-                                <a href="/" class="btn btn-primary float-right">Continue Shopping</a>
+                                <a href="{% url 'checkout' %}" class="btn btn-success btm-sm float-right ml-2">K platbě</a>
+                                <a href="/" class="btn btn-primary float-right">Pokračovat v nakupování</a>
                             </td>
                         </tr>
 

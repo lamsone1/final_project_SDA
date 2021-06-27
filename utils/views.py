@@ -1,4 +1,5 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
+from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
@@ -9,7 +10,7 @@ from utils.forms import BoxModelForm, StockModelForm, FefcoModelForm, LayerModel
 
 import stripe
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
@@ -37,61 +38,122 @@ def boxes(request):
     return render(request, template_name='goods_full_list.html', context={'boxes': box_list})
 
 
-class BoxesListView(LoginRequiredMixin, ListView):
+
+#from django.contrib.auth.mixins import PermissionRequiredMixin, AccessMixin
+
+
+class StaffRequiredMixin(UserPassesTestMixin):
+  def test_func(self):
+    return self.request.user.is_staff
+
+class BoxesListView(PermissionRequiredMixin, ListView, StaffRequiredMixin):
+    permission_required = 'utils.utils'
     template_name = 'goods_list.html'
     model = Box
 
-class BoxUpdateView(LoginRequiredMixin, UpdateView):
+    def handle_no_permission(self):
+        return redirect('bad-auth/')
+
+class BoxUpdateView(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     model = Box
     form_class = BoxModelForm
     success_url = reverse_lazy('utils')
+    permission_required = 'utils.utils'
 
-class BoxDeleteView(LoginRequiredMixin, DeleteView):
+    def handle_no_permission(self):
+        return redirect('/')
+
+class BoxDeleteView(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'box_confirm_delete.html'
     model = Box
     success_url = reverse_lazy('utils')
 
-class ToStockUpdateView(LoginRequiredMixin, UpdateView):
+    permission_required = 'utils.utils'
+
+    def handle_no_permission(self):
+        return redirect('/')
+
+class ToStockUpdateView(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     model = Box
     form_class = StockModelForm
     success_url = reverse_lazy('utils')
 
-class BoxCreateView(LoginRequiredMixin, CreateView):
+    permission_required = 'utils.utils'
+
+    def handle_no_permission(self):
+        return redirect('/')
+
+class BoxCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = BoxModelForm
     success_url = reverse_lazy('utils')
 
-class FefcoListView(LoginRequiredMixin, ListView):
+    permission_required = 'utils.utils'
+
+    def handle_no_permission(self):
+        return redirect('/')
+
+class FefcoListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
     template_name = 'fefco_list.html'
     model = Fefco
 
-class FefcoCreateView(LoginRequiredMixin, CreateView):
+    permission_required = 'utils.utils'
+
+    def handle_no_permission(self):
+        return redirect('/')
+
+class FefcoCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = FefcoModelForm
     success_url = reverse_lazy('utils')
 
-class FefcoUpdateView(LoginRequiredMixin, UpdateView):
+    permission_required = 'utils.utils'
+
+    def handle_no_permission(self):
+        return redirect('/')
+
+class FefcoUpdateView(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     model = Fefco
     form_class = FefcoModelForm
     success_url = reverse_lazy('utils/fefco')
 
-class LayerListView(LoginRequiredMixin, ListView):
+    permission_required = 'utils.utils'
+
+    def handle_no_permission(self):
+        return redirect('/')
+
+class LayerListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
     template_name = 'layer_list.html'
     model = Layer
 
-class LayerCreateView(LoginRequiredMixin, CreateView):
+    permission_required = 'utils.utils'
+
+    def handle_no_permission(self):
+        return redirect('/')
+
+class LayerCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = FefcoModelForm
     success_url = reverse_lazy('utils')
 
-class LayerUpdateView(LoginRequiredMixin, UpdateView):
+    permission_required = 'utils.utils'
+
+    def handle_no_permission(self):
+        return redirect('/')
+
+class LayerUpdateView(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     model = Layer
     form_class = LayerModelForm
     success_url = reverse_lazy('utils/layer')
+
+    permission_required = 'utils.utils'
+
+    def handle_no_permission(self):
+        return redirect('/')
 
 
 
@@ -104,6 +166,9 @@ class ProductView(DetailView):
 
 class FrontView(TemplateView):
     template_name = 'front.html'
+
+class AuthFrontView(TemplateView):
+    template_name = 'auth.html'
 
 
 class AboutView(TemplateView):
@@ -143,6 +208,17 @@ class FrontFefcoListView(ListView):
         content = {
             'fefcotype': self.kwargs['fefco'],
             'products': Box.objects.filter(fefco__fefco_code=self.kwargs['fefco'])
+        }
+        return content
+
+class FrontLayerListView(ListView):
+    template_name = "front_layer_list.html"
+    context_object_name = "layerlist"
+
+    def get_queryset(self):
+        content = {
+            'layertype': self.kwargs['layer'],
+            'products': Box.objects.filter(layer__id=self.kwargs['layer'])
         }
         return content
 
@@ -369,3 +445,18 @@ def reduce_quantity_item(request, pk):
         #add message doesnt have order
         messages.info(request, "You do not have an Order")
         return redirect("order-summary")
+
+def search_product(request):
+    """ search function  """
+    if request.method == "GET":
+        query_name = request.GET.get('name', None)
+        if query_name:
+            results = Box.objects.filter(Q(name__icontains=query_name)|Q(fefco__fefco_code__icontains=query_name)|Q(layer__layer__icontains=query_name)|Q(color__icontains=query_name))
+            #results | =
+            return render(request, 'search.html', {"item_list":results})
+
+    return render(request, 'search.html')
+
+class SearchView(ListView):
+    model = Box
+    template_name = "search.html"
